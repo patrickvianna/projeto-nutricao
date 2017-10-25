@@ -1,11 +1,12 @@
 package Model;
 
-import java.util.Set;
+import java.util.*;
 
 public class Refeicao {
     private int id;
     private String nome;
-    private Set<Alimento> alimentos;
+    private ArrayList<Alimento> alimentos;
+    private ArrayList<Float> qtdAlimento;
 
     public Refeicao() {
     }

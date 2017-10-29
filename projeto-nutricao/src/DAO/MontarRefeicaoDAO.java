@@ -9,5 +9,5 @@ public interface MontarRefeicaoDAO {
 
     void salvar(MontaRefeicao montarRefeicao);
 
-    void excluir(MontaRefeicao montarRefeicao);
+    //void excluir(MontaRefeicao montarRefeicao);
 }

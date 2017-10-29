@@ -26,77 +26,72 @@ public class MenuVw extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        MenuPainel = new javax.swing.JTabbedPane();
-        AlimentosTab = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        alimentosTable = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Nutrição");
 
-        MenuPainel.setToolTipText("");
-        MenuPainel.setName("menuPainel"); // NOI18N
-
-        alimentosTable.setModel(Model.Alimento);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, alimentosTable, org.jdesktop.beansbinding.ELProperty.create("${}"), alimentosTable, org.jdesktop.beansbinding.BeanProperty.create("autoCreateRowSorter"));
-        bindingGroup.addBinding(binding);
-
-        jScrollPane1.setViewportView(alimentosTable);
-
-        javax.swing.GroupLayout AlimentosTabLayout = new javax.swing.GroupLayout(AlimentosTab);
-        AlimentosTab.setLayout(AlimentosTabLayout);
-        AlimentosTabLayout.setHorizontalGroup(
-            AlimentosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AlimentosTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 784, Short.MAX_VALUE)
         );
-        AlimentosTabLayout.setVerticalGroup(
-            AlimentosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AlimentosTabLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 541, Short.MAX_VALUE)
         );
 
-        MenuPainel.addTab("Alimentos", AlimentosTab);
+        jMenu1.setText("Alimentos");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
-        );
+        jMenu2.setText("Historico de Refeições");
+        jMenuBar1.add(jMenu2);
 
-        MenuPainel.addTab("tab4", jPanel3);
+        jMenu3.setText("Sair");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(MenuPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 95, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(MenuPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 54, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
 
-        bindingGroup.bind();
-
-        pack();
+        setSize(new java.awt.Dimension(800, 600));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+       System.exit(0);
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+       alimentosVw al = new alimentosVw();
+       al.setVisible(true);
+       
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -125,6 +120,8 @@ public class MenuVw extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -135,11 +132,10 @@ public class MenuVw extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AlimentosTab;
-    private javax.swing.JTabbedPane MenuPainel;
-    private javax.swing.JTable alimentosTable;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

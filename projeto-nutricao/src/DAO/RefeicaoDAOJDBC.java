@@ -28,7 +28,7 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
 
                 refeicao.setId(new Long(rset.getLong("id")));
                 refeicao.setNome(new String(rset.getString("nome")));
-                refeicao.setQuantidade(new Integer(rset.getInt("quantidade")));
+                //refeicao.setQuantidade(new Integer(rset.getInt("quantidade")));
                 refeicao.setAlimentos(set);        //Ainda falta a inserção do banco na coleção do tipo Set
                 set.add(refeicao);
             }
@@ -50,7 +50,7 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
                 stmt.setLong(4, refeicao.getId());
             }
             stmt.setString(1, refeicao.getNome());
-            stmt.setInt(2, refeicao.getQuantidade());
+            //stmt.setInt(2, refeicao.getQuantidade());
         } catch (SQLException ex) {
             Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro SQL: " + ex.getMessage());

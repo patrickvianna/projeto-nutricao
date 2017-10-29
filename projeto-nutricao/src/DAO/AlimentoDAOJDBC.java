@@ -4,22 +4,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Model.Alimento;
+import java.util.ArrayList;
 import tools.DAOBaseJDBC;
 
-/**
- *
- * @author alunodev02
- */
 public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
 
     PreparedStatement stmt = null;
+    private ArrayList<Alimento> alimentos = new ArrayList();
 
-    @Override
+    /*@Override
     public Collection obterTodos() {
         Set set = new HashSet<>();
         ResultSet rset = null;
@@ -41,6 +37,28 @@ public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
             System.exit(1);
         }
         return set;
+    }*/
+    public ArrayList<Alimento> consultar(){
+       // Alimento alim = null;
+            try {
+                PreparedStatement smt =
+                        conn.prepareStatement("SELECT * FROM tab_alimento");
+                ResultSet rset = smt.executeQuery();
+                          
+                while(rset.next()){
+                    Alimento alimento = new Alimento();
+                    
+                    alimento.setId(rset.getLong("ID"));
+                    alimento.setNome(rset.getString("NOME_ALIMENTO"));
+                    alimento.setDescricao(rset.getString("DESC_ALIMENTO"));
+                    alimento.setTipo(rset.getString("TIPO_ALIMENTO"));
+                    alimentos.add(alimento);
+                }
+            }catch(SQLException e){
+                System.out.println("erro " + e);
+            }
+            
+             return alimentos;
     }
 
     @Override

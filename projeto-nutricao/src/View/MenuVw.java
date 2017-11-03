@@ -35,17 +35,20 @@ public class MenuVw extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Nutrição");
+        setPreferredSize(new java.awt.Dimension(1024, 760));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
+            .addGap(0, 1016, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 670, Short.MAX_VALUE)
         );
+
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(1024, 21));
 
         jMenu1.setText("Alimentos");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -76,10 +79,10 @@ public class MenuVw extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(800, 600));
+        setSize(new java.awt.Dimension(1032, 729));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -88,8 +91,10 @@ public class MenuVw extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-       alimentosVw al = new alimentosVw();
-       al.setVisible(true);
+       //alimentosVw al = new alimentosVw();
+       TelaAlimento telaAlimento = new TelaAlimento();
+       jDesktopPane1.add(telaAlimento);
+       telaAlimento.show();
        
     }//GEN-LAST:event_jMenu1MouseClicked
 
@@ -126,10 +131,16 @@ public class MenuVw extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuVw().setVisible(true);
+              MenuVw menu =  new MenuVw();
+              menu.setVisible(true);
+              menu.setResizable(false);
+             
             }
         });
     }
+    //fnkdjklgjldjlçglçdng
+    
+     //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;

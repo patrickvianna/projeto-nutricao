@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Alimento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,13 +10,16 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Model.Nutriente;
+import java.util.ArrayList;
 import tools.DAOBaseJDBC;
 
 public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
 
     PreparedStatement stmt = null;
+    
+    private ArrayList<Nutriente> nutrientes = new ArrayList();
 
-    @Override
+    /*@Override
     public Collection obterTodos() {
         Set set = new HashSet<>();
         ResultSet rset = null;
@@ -35,6 +39,30 @@ public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
             System.exit(1);
         }
         return set;
+    }*/
+    
+    public ArrayList<Nutriente> consultar(Alimento alimento){
+       // Alimento alim = null;
+            try {
+                PreparedStatement smt =
+                        conn.prepareStatement("SELECT * FROM tab_nutriente WHERE tab_alimento_id = ?");
+                        smt.setLong(1, alimento.getId());
+                ResultSet rset = smt.executeQuery();
+                          
+                while(rset.next()){
+                    Nutriente nutriente = new Nutriente();
+                    
+                    nutriente.setId(rset.getLong("ID"));
+                    nutriente.setTipo(rset.getString("NOME"));
+                    nutriente.setQuantidade(rset.getFloat("QTD"));
+                    nutrientes.add(nutriente);
+                }
+            }catch(SQLException e){
+                Logger.getLogger(AlimentoDAOJDBC.class.getName()).log(Level.SEVERE, null, e);
+                System.out.println("erro " + e);
+            }
+            
+             return nutrientes;
     }
 
     @Override
@@ -54,7 +82,7 @@ public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
             System.exit(1);
         }
     }
-
+//fnkdjklgjldjlçglçdng
     @Override
     public void excluir(Nutriente nutriente) {
         if (nutriente.getTipo() != null) {
@@ -70,5 +98,11 @@ public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
 
         }
     }
+ //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+    
+    /*@Override
+    public ArrayList<Nutriente> consultar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
 
 }

@@ -33,7 +33,7 @@ public class Nutriente {
         return qtd;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(float quantidade) {
         this.qtd = quantidade;
     }
     

@@ -17,11 +17,11 @@ import java.util.logging.Logger;
  */
 public class DAOBaseJDBC {
 
-    protected static Connection conn;
+    /*protected static Connection conn;
 
     static {
         try {
-            Class.forName(Config.NOME_DRIVE);
+            Class.forName(Config.NOME_DRIVER);
             conn = DriverManager.getConnection(Config.BD_URL, Config.BD_LOGIN, Config.BD_SENHA);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOBaseJDBC.class.getName()).log(Level.SEVERE, null, ex);
@@ -33,5 +33,20 @@ public class DAOBaseJDBC {
             System.exit(1);
         }
 
+    }*/
+    
+     protected static Connection conn;
+    
+    static{
+        try{
+            Class.forName(Config.NOME_DRIVER);
+            conn = (Connection) DriverManager.getConnection(Config.BD_URL,Config.BD_LOGIN, Config.BD_SENHA);
+        }catch(ClassNotFoundException e){
+            System.out.println("FATAL: driver não encontrado");
+            System.exit(1);
+        }catch(SQLException e){
+            System.out.println("Erro SQL: " + e.getMessage());
+            System.exit(1);
+        }
     }
 }

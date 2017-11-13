@@ -13,9 +13,9 @@ import tools.DAOBaseJDBC;
 
 public class PessoaDAOJDBC extends DAOBaseJDBC implements PessoaDAO {
 
-    PreparedStatement stmt = null;
+    
 
-    @Override
+    /*@Override
     public Collection obterTodos() {
         Set set = new HashSet<>();
         ResultSet rset = null;
@@ -37,34 +37,75 @@ public class PessoaDAOJDBC extends DAOBaseJDBC implements PessoaDAO {
             System.exit(1);
         }
         return set;
+    }*/
+    
+    @Override
+    public Pessoa ValidarUsuario(String login, String senha){
+            Pessoa pessoa = null;
+            try {
+                PreparedStatement smt =
+                        conn.prepareStatement("SELECT * FROM tab_pessoa WHERE login = ? and senha = ?");
+                smt.setString(1, login);
+                smt.setString(2, senha);
+                ResultSet rset = smt.executeQuery();
+                          
+                if(rset.next()){
+                   pessoa = new Pessoa();
+                    
+                    pessoa.setId(rset.getLong("ID"));
+                    pessoa.setNome(rset.getString("NOME"));
+                    pessoa.setIdade(rset.getInt("IDADE"));
+                    pessoa.setEmail(rset.getString("EMAIL"));
+                    pessoa.setLogin(rset.getString("LOGIN"));
+                    pessoa.setSenha(rset.getString("SENHA"));
+                    smt.close();
+                    
+                }
+            }catch(SQLException e){
+                Logger.getLogger(PessoaDAOJDBC.class.getName()).log(Level.SEVERE, null, e);
+                System.out.println("erro " + e);
+            }
+            
+             return pessoa;
     }
 
     @Override
-    public void salvar(Pessoa pessoa) {
+    public boolean salvar(Pessoa pessoa) {
+        PreparedStatement stmt;
+        boolean certo = false;
         try {
             if (pessoa.getId() == null) {
-                stmt = conn.prepareStatement("INSERT INTO Pessoa (idade,nome,email) VALUES(?,?,?)");
+                stmt = conn.prepareStatement("INSERT INTO tab_pessoa (nome,idade,email,login,senha) VALUES(?, ?, ?, ? ,?)");
+                certo = true;
             } else {
-                stmt = conn.prepareStatement("UPDATE Pessoa SET idade = ?, nome = ?, email = ?, WHERE id = ?");
-                stmt.setLong(4, pessoa.getId());
+                stmt = conn.prepareStatement("UPDATE tab_pessoa SET  nome = ?, idade = ?, email = ?, login = ?, senha = ? WHERE id = ?");
+                stmt.setLong(6, pessoa.getId());
+                certo = true;
             }
-            stmt.setInt(1, pessoa.getIdade());
-            stmt.setString(2, pessoa.getNome());
+            stmt.setString(1, pessoa.getNome());
+            stmt.setInt(2, pessoa.getIdade());
             stmt.setString(3, pessoa.getEmail());
+            stmt.setString(4,pessoa.getLogin());
+            stmt.setString(5,pessoa.getSenha());
+            stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro SQL: " + ex.getMessage());
             System.exit(1);
         }
+        return certo;
     }
 
     @Override
-    public void excluir(Pessoa pessoa) {
-        if (pessoa.getNome() != null) {
+    public boolean excluir(Pessoa pessoa) {
+        PreparedStatement stmt;
+        boolean certo = false;
+        if (pessoa.getId() != null) {
             try {
-                stmt = conn.prepareStatement("DELETE FROM Alimento WHERE NOME = ?");
-                stmt.setString(1, pessoa.getNome());
+                stmt = conn.prepareStatement("DELETE FROM tab_pessoa WHERE id = ?");
+                stmt.setLong(1, pessoa.getId());
                 stmt.executeUpdate();
+                certo = true;
             } catch (SQLException ex) {
                 Logger.getLogger(PessoaDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("Erro SQL: " + ex.getMessage());
@@ -72,6 +113,41 @@ public class PessoaDAOJDBC extends DAOBaseJDBC implements PessoaDAO {
             }
 
         }
+        return certo;
     }
+    
+    @Override
+    public Pessoa ConsultarUsuarioNome(String nome){
+            Pessoa pessoa = null;
+        
+        try {
+                PreparedStatement smt =
+                        conn.prepareStatement("SELECT * FROM tab_pessoa WHERE nome = ?");
+                        smt.setString(1, nome);
+                ResultSet rset = smt.executeQuery();
+                          
+                if(rset.next()){
+                   
+                    pessoa = new Pessoa();
+        
+                    pessoa.setId(rset.getLong("ID"));
+                    pessoa.setNome(rset.getString("NOME"));
+                    pessoa.setIdade(rset.getInt("IDADE"));
+                    pessoa.setEmail(rset.getString("EMAIL"));
+                    pessoa.setLogin(rset.getString("LOGIN"));
+                    pessoa.setSenha(rset.getString("SENHA"));
+                     
+                }else{
+                    return null;
+                }
+            }catch(SQLException e){
+                
+                System.out.println("Falha na consulta " + e.getMessage());
+                return null;
+            }
+            
+            return pessoa;
+    }
+
 
 }

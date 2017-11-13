@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package tools;
-//fnkdjklgjldjlçglçdng
 /**
  *
  * @author alunodev02
@@ -23,5 +22,5 @@ public interface Config {
     public static final String BD_LOGIN = "root";
     public static final String BD_SENHA = "";
     
-     //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+     
 }

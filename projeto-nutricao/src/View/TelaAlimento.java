@@ -43,7 +43,13 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
         jTableNutrientes = new javax.swing.JTable();
         selecionaAlimentosBtn = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1024, 760));
+        setClosable(true);
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                formComponentMoved(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 760));
@@ -118,7 +124,7 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 984, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -142,14 +148,15 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +187,7 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
                 a.getTipo()
             });
         }
-        //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+        
     }
 
         //Colocar os dados do nutriente na tabelaNutriente
@@ -224,7 +231,11 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_selecionaAlimentosBtnActionPerformed
 
-        //fnkdjklgjldjlçglçdng
+    private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
+        this.setLocation(0,0);
+    }//GEN-LAST:event_formComponentMoved
+
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable jAlimentos;

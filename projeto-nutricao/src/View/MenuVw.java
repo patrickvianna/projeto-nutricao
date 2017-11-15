@@ -23,6 +23,7 @@ public class MenuVw extends javax.swing.JFrame {
     /**
      * Creates new form MenuVw
      */
+    
     public MenuVw() {
         initComponents();
         
@@ -33,7 +34,7 @@ public class MenuVw extends javax.swing.JFrame {
         
         Timer time = new Timer(1000, new hora());
         time.start();
-              
+        
     }
 
     /**
@@ -149,12 +150,12 @@ public class MenuVw extends javax.swing.JFrame {
     //Menu Alimento. Abre a tela Alimentos
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
        
-       TelaAlimento telaAlimento = new TelaAlimento();
+       TelaAlimento telaAlimento = new TelaAlimento(jDesktopPane1);
        jDesktopPane1.add(telaAlimento);
        telaAlimento.show();
-       
+      
     }//GEN-LAST:event_jMenu1MouseClicked
-
+ 
     //Menu meusDados. Abre a tela MeusDados
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         
@@ -225,7 +226,7 @@ public class MenuVw extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

@@ -46,6 +46,9 @@ public class LoginVw extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+
+        jPanel1.setToolTipText("");
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel2.setText("Projeto Nutrição");
@@ -70,7 +73,7 @@ public class LoginVw extends javax.swing.JFrame {
             }
         });
 
-        BtnCadastrar.setForeground(new java.awt.Color(0, 51, 204));
+        BtnCadastrar.setForeground(new java.awt.Color(255, 51, 51));
         BtnCadastrar.setText("Cadastrar");
         BtnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

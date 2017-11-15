@@ -22,6 +22,7 @@ public class MeusDados extends javax.swing.JInternalFrame {
     public MeusDados() {
         initComponents();
         CampoId.setVisible(false);
+        
     }
     
     //Carregar os dados do usuario logado na tela de Dados
@@ -77,6 +78,7 @@ public class MeusDados extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
+        setTitle("Meus Dados");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());

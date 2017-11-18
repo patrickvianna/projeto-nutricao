@@ -1,9 +1,21 @@
 use  mydb;
 
-INSERT INTO tab_alimento (NOME,DESCRICAO,TIPO) VALUES ('Arroz','100g arroz Branco cozido','cereal');
+INSERT INTO tab_alimento (NOME,DESCRICAO,TIPO) VALUES ('Arroz','O arroz é uma planta da família das gramíneas que alimenta mais da metade da população humana do mundo.','cereal');
 INSERT INTO tab_alimento (NOME,DESCRICAO,TIPO) VALUES ('Feijão','45g de feijao cru','leguminosa');
 INSERT INTO tab_alimento (NOME,DESCRICAO,TIPO) VALUES ('Frango','100g de frango','carne');
 INSERT INTO tab_alimento (NOME,DESCRICAO,TIPO) VALUES ('Carne','crua sem gordura','carne');
+
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Calorias');
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Carboidrato');
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Proteína');
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Sódio');
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Potássio');
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Carboidrato');
+INSERT INTO lov_nutriente (TEXTO) VALUES ('Carboidrato');
+
+
+
+
 
 INSERT INTO tab_nutriente (NOME,QTD,TAB_ALIMENTO_ID) VALUES ('Carboidrato',7.03,1);
 INSERT INTO tab_nutriente (NOME,QTD,TAB_ALIMENTO_ID) VALUES ('Proteína',0.63,1);

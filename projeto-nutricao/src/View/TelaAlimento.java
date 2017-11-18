@@ -56,14 +56,14 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome", "Descrição", "Tipo", "Quantidade", "Selecionar"
+                "ID", "Nome", "Descrição", "Tipo", "Quantidade", "Selecionar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -80,6 +80,11 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(jAlimentos);
+        if (jAlimentos.getColumnModel().getColumnCount() > 0) {
+            jAlimentos.getColumnModel().getColumn(0).setMinWidth(0);
+            jAlimentos.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jAlimentos.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Nutrientes :");
@@ -174,7 +179,7 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
         
         for(Alimento a: alimentoDao.consultar()){            
             modelo.addRow(new Object[]{
-                //a.getId(),
+                a.getId(),
                 a.getNome(),
                 a.getDescricao(),
                 a.getTipo()

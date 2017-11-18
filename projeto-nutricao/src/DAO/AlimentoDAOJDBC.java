@@ -97,7 +97,7 @@ public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
 
         }
     }
-    //fnkdjklgjldjlçglçdng
+   
     @Override
     public Alimento buscarAlimentoNome(String nome){
         Alimento alimento = null;
@@ -129,6 +129,6 @@ public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
             return alimento;
     }
     
-     //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+   
 
 }

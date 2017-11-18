@@ -82,7 +82,7 @@ public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
             System.exit(1);
         }
     }
-//fnkdjklgjldjlçglçdng
+
     @Override
     public void excluir(Nutriente nutriente) {
         if (nutriente.getTipo() != null) {
@@ -98,11 +98,8 @@ public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
 
         }
     }
- //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+ 
     
-    /*@Override
-    public ArrayList<Nutriente> consultar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
+    
 
 }

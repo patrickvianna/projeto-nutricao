@@ -5,6 +5,15 @@
  */
 package View;
 
+import DAO.PessoaDAOJDBC;
+import Model.Pessoa;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.Timer;
+
 /**
  *
  * @author alunodev06
@@ -14,8 +23,18 @@ public class MenuVw extends javax.swing.JFrame {
     /**
      * Creates new form MenuVw
      */
+    
     public MenuVw() {
         initComponents();
+        
+        Date data = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyy");
+        
+        txtData.setText("    " + formato.format(data));
+        
+        Timer time = new Timer(1000, new hora());
+        time.start();
+        
     }
 
     /**
@@ -27,30 +46,45 @@ public class MenuVw extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSlider1 = new javax.swing.JSlider();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        txtData = new javax.swing.JLabel();
+        txtNomeUsuario = new javax.swing.JLabel();
+        txtHora = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Nutrição");
-        setPreferredSize(new java.awt.Dimension(1024, 760));
+        setMinimumSize(new java.awt.Dimension(57, 33));
+
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(800, 600));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1016, Short.MAX_VALUE)
+            .addGap(0, 791, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 586, Short.MAX_VALUE)
         );
 
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(1024, 21));
+        txtData.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txtData.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jMenu1.setText("Alimentos");
+        txtNomeUsuario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        txtHora.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txtHora.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(800, 21));
+
+        jMenu1.setText("Alimentos ");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu1MouseClicked(evt);
@@ -60,6 +94,14 @@ public class MenuVw extends javax.swing.JFrame {
 
         jMenu2.setText("Historico de Refeições");
         jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Meus Dados");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Sair");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,28 +117,54 @@ public class MenuVw extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(txtNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(61, 61, 61)
+                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeUsuario))
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(1032, 729));
+        setSize(new java.awt.Dimension(807, 691));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //menu sair.Fecha a tela
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
        System.exit(0);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+    //Menu Alimento. Abre a tela Alimentos
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-       //alimentosVw al = new alimentosVw();
-       TelaAlimento telaAlimento = new TelaAlimento();
+       
+       TelaAlimento telaAlimento = new TelaAlimento(jDesktopPane1);
        jDesktopPane1.add(telaAlimento);
        telaAlimento.show();
-       
+      
     }//GEN-LAST:event_jMenu1MouseClicked
+ 
+    //Menu meusDados. Abre a tela MeusDados
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        
+        PessoaDAOJDBC pessoa = new PessoaDAOJDBC();
+        MeusDados telaMeusDados = new MeusDados();
+        telaMeusDados.DadosUsuario(pessoa.ConsultarUsuarioNome(txtNomeUsuario.getText()));
+        jDesktopPane1.add(telaMeusDados);
+        telaMeusDados.show();
+    }//GEN-LAST:event_jMenu4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -127,26 +195,46 @@ public class MenuVw extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
               MenuVw menu =  new MenuVw();
               menu.setVisible(true);
-              menu.setResizable(false);
-             
+              menu.setResizable(false);       
             }
         });
+        */       
     }
-    //fnkdjklgjldjlçglçdng
+    //metodo para hora
+    class hora implements ActionListener{
+       
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            Calendar now = Calendar.getInstance();
+           txtHora.setText(String.format("   " + "%1$tH:%1$tM:%1$tS", now));
+        }
+    }
     
-     //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+    //metodo para colocar o nome do usuario logado na labe da tela menu
+    public void Usuario(Pessoa usuario){
+        txtNomeUsuario.setText(usuario.getNome());  
+    }
+    
+    
+  
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JLabel txtData;
+    private javax.swing.JLabel txtHora;
+    private javax.swing.JLabel txtNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }

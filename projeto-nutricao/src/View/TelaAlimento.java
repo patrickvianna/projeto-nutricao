@@ -9,6 +9,7 @@ import DAO.AlimentoDAOJDBC;
 import DAO.NutrienteDAOJDBC;
 import Model.Alimento;
 import Model.Nutriente;
+import java.awt.Menu;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -17,12 +18,18 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaAlimento
      */
-    public TelaAlimento() {
+    public TelaMontarRefeicao telaRefeicao;
+    
+    public TelaAlimento(final javax.swing.JDesktopPane jDesktopPane1) {
         initComponents();
+        
         DefaultTableModel modelo = (DefaultTableModel) jAlimentos.getModel();
         jAlimentos.setRowSorter(new TableRowSorter(modelo));
         
         readJTableAlimento();
+        
+         telaRefeicao = new TelaMontarRefeicao();
+         jDesktopPane1.add(telaRefeicao);
     }
 
     /**
@@ -43,7 +50,14 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
         jTableNutrientes = new javax.swing.JTable();
         selecionaAlimentosBtn = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1024, 760));
+        setClosable(true);
+        setTitle("Alimentos");
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                formComponentMoved(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 760));
@@ -102,7 +116,9 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableNutrientes);
 
-        selecionaAlimentosBtn.setText("Seleciona Alimentos");
+        selecionaAlimentosBtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        selecionaAlimentosBtn.setForeground(new java.awt.Color(0, 102, 204));
+        selecionaAlimentosBtn.setText("Montar Refeição");
         selecionaAlimentosBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selecionaAlimentosBtnActionPerformed(evt);
@@ -118,7 +134,7 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 984, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -142,18 +158,19 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
         );
 
         pack();
@@ -180,7 +197,7 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
                 a.getTipo()
             });
         }
-        //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+        
     }
 
         //Colocar os dados do nutriente na tabelaNutriente
@@ -221,10 +238,16 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
             }
         }
         
+        telaRefeicao.show();
+        this.dispose();
         
     }//GEN-LAST:event_selecionaAlimentosBtnActionPerformed
 
-        //fnkdjklgjldjlçglçdng
+    private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
+        this.setLocation(0,0);
+    }//GEN-LAST:event_formComponentMoved
+
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable jAlimentos;
@@ -234,6 +257,6 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableNutrientes;
-    private javax.swing.JButton selecionaAlimentosBtn;
+    public javax.swing.JButton selecionaAlimentosBtn;
     // End of variables declaration//GEN-END:variables
 }

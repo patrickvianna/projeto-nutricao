@@ -14,15 +14,18 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb`;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`LOV_ NUTRIENTE`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`LOV_ NUTRIENTE` (
+DROP TABLE IF EXISTS `mydb`.`LOV_NUTRIENTE`;
+CREATE TABLE IF NOT EXISTS `mydb`.`LOV_NUTRIENTE` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `TEXTO` VARCHAR(45) NOT NULL,
+  `UNIDADE_MEDIDA` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
 
@@ -30,6 +33,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TAB_ALIMENTO`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`TAB_ALIMENTO`;
 CREATE TABLE IF NOT EXISTS `mydb`.`TAB_ALIMENTO` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `NOME` VARCHAR(45) NULL,
@@ -42,17 +46,18 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TAB_NUTRIENTE`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`TAB_NUTRIENTE`;
 CREATE TABLE IF NOT EXISTS `mydb`.`TAB_NUTRIENTE` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `QTD` FLOAT NOT NULL,
-  `LOV_ NUTRIENTE_ID` INT NOT NULL,
+  `LOV_NUTRIENTE_ID` INT NOT NULL,
   `TAB_ALIMENTO_ID` INT NOT NULL,
-  PRIMARY KEY (`ID`, `LOV_ NUTRIENTE_ID`, `TAB_ALIMENTO_ID`),
-  INDEX `fk_TAB_NUTRIENTE_LOV_ NUTRIENTE_idx` (`LOV_ NUTRIENTE_ID` ASC),
+  PRIMARY KEY (`ID`, `LOV_NUTRIENTE_ID`, `TAB_ALIMENTO_ID`),
+  INDEX `fk_TAB_NUTRIENTE_LOV_NUTRIENTE_idx` (`LOV_NUTRIENTE_ID` ASC),
   INDEX `fk_TAB_NUTRIENTE_TAB_ALIMENTO1_idx` (`TAB_ALIMENTO_ID` ASC),
-  CONSTRAINT `fk_TAB_NUTRIENTE_LOV_ NUTRIENTE`
-    FOREIGN KEY (`LOV_ NUTRIENTE_ID`)
-    REFERENCES `mydb`.`LOV_ NUTRIENTE` (`ID`)
+  CONSTRAINT `fk_TAB_NUTRIENTE_LOV_NUTRIENTE`
+    FOREIGN KEY (`LOV_NUTRIENTE_ID`)
+    REFERENCES `mIDydb`.`LOV_NUTRIENTE` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TAB_NUTRIENTE_TAB_ALIMENTO1`
@@ -66,6 +71,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TAB_PESSOA`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`TAB_PESSOA`;
 CREATE TABLE IF NOT EXISTS `mydb`.`TAB_PESSOA` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `NOME` VARCHAR(45) NULL,
@@ -80,9 +86,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TAB_REFEICAO`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`TAB_REFEICAO`;
 CREATE TABLE IF NOT EXISTS `mydb`.`TAB_REFEICAO` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `NOME` VARCHAR(45) NULL,
+  `PRECO` FLOAT ,
   `TAB_PESSOA_ID` INT NOT NULL,
   PRIMARY KEY (`ID`, `TAB_PESSOA_ID`),
   INDEX `fk_TAB_REFEICAO_TAB_PESSOA1_idx` (`TAB_PESSOA_ID` ASC),
@@ -97,6 +105,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TAB_ALIMENTO_has_TAB_REFEICAO`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`TAB_ALIMENTO_has_TAB_REFEICAO`;
 CREATE TABLE IF NOT EXISTS `mydb`.`TAB_ALIMENTO_has_TAB_REFEICAO` (
   `TAB_ALIMENTO_ID` INT NOT NULL,
   `TAB_REFEICAO_ID` INT NOT NULL,

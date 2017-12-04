@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
-
-/**
- *
- * @author Humberto
- */
+import Model.SelecionarAlimentos;
+import Model.Nutriente;
+import java.util.ArrayList;
+import Controller.RefeicaoCtrl;
+import DAO.AlimentoDAOJDBC;
+import Model.Alimento;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaMontarRefeição
      */
     public TelaMontarRefeicao() {
-        initComponents();
+        initComponents(); 
     }
 
     /**
@@ -38,12 +36,14 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
         CampoKcalRefeicao = new javax.swing.JTextField();
         BtnSalvarRefeicao = new javax.swing.JButton();
         BtnCancelarRefeicao = new javax.swing.JButton();
+        txIdUsuario = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabAlimento = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabNutrientes = new javax.swing.JTable();
 
+        setClosable(true);
         setTitle("Refeição");
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -69,11 +69,17 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("KCal:");
 
+        CampoKcalRefeicao.setEditable(false);
         CampoKcalRefeicao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         BtnSalvarRefeicao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         BtnSalvarRefeicao.setForeground(new java.awt.Color(0, 102, 204));
         BtnSalvarRefeicao.setText("Salvar");
+        BtnSalvarRefeicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarRefeicao(evt);
+            }
+        });
 
         BtnCancelarRefeicao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         BtnCancelarRefeicao.setForeground(new java.awt.Color(255, 51, 51));
@@ -105,9 +111,11 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
                         .addComponent(jLabel5)
                         .addGap(30, 30, 30)
                         .addComponent(CampoKcalRefeicao, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(36, Short.MAX_VALUE))
+                        .addContainerGap(129, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txIdUsuario)
+                        .addGap(91, 91, 91)
                         .addComponent(BtnCancelarRefeicao, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BtnSalvarRefeicao, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,7 +141,8 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(CampoPrecoRefeicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(txIdUsuario))
                         .addGap(37, 37, 37))))
         );
 
@@ -145,11 +154,11 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome", "Descrição", "Tipo", "Quantidade"
+                "ID", "Nome", "Descrição", "Tipo", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -157,6 +166,11 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane3.setViewportView(tabAlimento);
+        if (tabAlimento.getColumnModel().getColumnCount() > 0) {
+            tabAlimento.getColumnModel().getColumn(0).setMinWidth(0);
+            tabAlimento.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabAlimento.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         tabNutrientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -197,7 +211,7 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,6 +233,96 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_BtnCancelarRefeicaoActionPerformed
 
+    private void btnSalvarRefeicao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarRefeicao
+        RefeicaoCtrl rf =  new RefeicaoCtrl();        
+        ArrayList<SelecionarAlimentos> listSa = new ArrayList<SelecionarAlimentos>();
+        
+        for(int i =0; i< tabAlimento.getRowCount(); i++)
+        {            
+            SelecionarAlimentos sa = new SelecionarAlimentos();
+            sa.setAlimentoQtd(
+                    Long.parseLong(tabAlimento.getValueAt(i, 0).toString()), 
+                    Float.parseFloat(tabAlimento.getValueAt(i, 4).toString())
+            );
+            listSa.add(sa);            
+        }
+        
+        String nomeRefeicao = CampoNomeRefeicao.getText();
+        float precoRefeicao = Float.parseFloat(CampoPrecoRefeicao.getText());
+        Long usuarioLogado = Long.parseLong(txIdUsuario.getText());
+        try{
+            Boolean resultado = rf.salvarRefeicao(nomeRefeicao, precoRefeicao, listSa, usuarioLogado);
+            if(resultado){
+                JOptionPane.showMessageDialog(null,"Refeição cadastrada com sucesso!\n\n"
+                    + "Nome: " + nomeRefeicao + "\n"
+                    + "Preço: " + precoRefeicao + "\n");
+                this.dispose();
+            }else
+            {
+                JOptionPane.showMessageDialog(null,"Refeição não foi cadastrada!\n\n"
+                    + "Essa refeição já existe no nosso banco de dados \n");
+            }
+        }catch(Exception e){
+            System.out.println(" ERRO AO SALVAR REFEICAO :: " + e.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnSalvarRefeicao
+    // <editor-fold defaultstate="collapsed" desc="MontarRefeicao">
+    public void initMontarRefeicao(ArrayList<SelecionarAlimentos> sa, Long idUsuarioLogado)
+    {
+        txIdUsuario.setVisible(false);
+        txIdUsuario.setText(idUsuarioLogado.toString());
+        
+        RefeicaoCtrl rf =  new RefeicaoCtrl();
+        ArrayList<Nutriente> nutrientes = new ArrayList<>();
+        //OBTEM OS NUTRIENTES DESSES ALIMENTOS, JÁ CALCULADOS    
+        nutrientes = rf.calculoNutrientes(sa);
+        //PREENCHER TABELA DE ALIMENTOS
+        preencherTableAlimentos(sa);
+        //PREENCHER TABELA DE NUTRIENTES
+        preencherTableNutrientes(nutrientes);
+        
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="setTableAlimentos">
+    public void preencherTableAlimentos(ArrayList<SelecionarAlimentos> sa)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tabAlimento.getModel();
+        AlimentoDAOJDBC alimentoDao = new AlimentoDAOJDBC();
+        
+         for(SelecionarAlimentos a: sa){            
+            Alimento alimento = alimentoDao.buscarAlimentoID(a.getIdAlimento());
+             modelo.addRow(new Object[]{
+                alimento.getId(),
+                alimento.getNome(),
+                alimento.getDescricao(),
+                alimento.getTipo(),
+                a.getQtd()
+            });
+        }
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="setTableNutrientes">
+    public void preencherTableNutrientes(ArrayList<Nutriente> nutrientes)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tabNutrientes.getModel();
+        
+        for(Nutriente n: nutrientes)
+        {
+            if(n.getTipo().equals("Calorias"))
+            {
+                CampoKcalRefeicao.setText(Double.toString(n.getQuantidade()));                
+            }else
+            {
+                modelo.addRow(new Object[]{
+                    n.getTipo(),
+                    n.getQuantidade()
+                });
+            }
+            
+        }
+    }
+    // </editor-fold> 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelarRefeicao;
@@ -237,5 +341,6 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tabAlimento;
     private javax.swing.JTable tabNutrientes;
+    public javax.swing.JLabel txIdUsuario;
     // End of variables declaration//GEN-END:variables
 }

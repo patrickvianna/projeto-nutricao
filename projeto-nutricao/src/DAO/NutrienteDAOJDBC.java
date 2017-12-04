@@ -18,35 +18,15 @@ public class NutrienteDAOJDBC extends DAOBaseJDBC implements NutrienteDAO {
     PreparedStatement stmt = null;
     
     private ArrayList<Nutriente> nutrientes = new ArrayList();
-
-    /*@Override
-    public Collection obterTodos() {
-        Set set = new HashSet<>();
-        ResultSet rset = null;
-        try {
-            conn.prepareStatement("SELECT id, descricao, quantidade, FROM Nutriente");
-            rset = stmt.executeQuery();
-            while (rset.next()) {
-                Nutriente nutriente = new Nutriente();
-                nutriente.setId(new Long(rset.getString("id")));
-                nutriente.setTipo(new String(rset.getString("descricao")));
-                nutriente.setQuantidade(new Integer(rset.getInt("quantidade")));
-                set.add(nutriente);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NutrienteDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Erro SQL: " + ex.getMessage());
-            System.exit(1);
-        }
-        return set;
-    }*/
     
-    public ArrayList<Nutriente> consultar(Alimento alimento){
+    public ArrayList<Nutriente> consultar(Long idAlimento){
        // Alimento alim = null;
             try {
                 PreparedStatement smt =
-                        conn.prepareStatement("SELECT * FROM tab_nutriente WHERE tab_alimento_id = ?");
-                        smt.setLong(1, alimento.getId());
+                        conn.prepareStatement("SELECT n.ID as 'ID', ln.TEXTO as 'NOME', n.QTD as 'QTD' \n" +
+                                                " FROM tab_nutriente n INNER JOIN lov_nutriente ln ON n.LOV_NUTRIENTE_ID = ln.ID \n" +
+                                                " WHERE	n.TAB_ALIMENTO_ID = ?");
+                        smt.setLong(1, idAlimento);
                 ResultSet rset = smt.executeQuery();
                           
                 while(rset.next()){

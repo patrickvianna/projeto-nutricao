@@ -7,9 +7,11 @@ package View;
 
 import DAO.PessoaDAOJDBC;
 import Model.Pessoa;
+import Model.SelecionarAlimentos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.Timer;
@@ -20,9 +22,7 @@ import javax.swing.Timer;
  */
 public class MenuVw extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuVw
-     */
+    private Pessoa usuarioLogado;
     
     public MenuVw() {
         initComponents();
@@ -51,6 +51,7 @@ public class MenuVw extends javax.swing.JFrame {
         txtData = new javax.swing.JLabel();
         txtNomeUsuario = new javax.swing.JLabel();
         txtHora = new javax.swing.JLabel();
+        txIdUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -119,8 +120,14 @@ public class MenuVw extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(txtNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txIdUsuario)
+                        .addGap(18, 18, 18)))
                 .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,12 +138,16 @@ public class MenuVw extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeUsuario))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNomeUsuario))
+                    .addComponent(txIdUsuario))
                 .addContainerGap())
         );
+
+        txIdUsuario.getAccessibleContext().setAccessibleName("");
 
         setSize(new java.awt.Dimension(807, 691));
         setLocationRelativeTo(null);
@@ -150,7 +161,7 @@ public class MenuVw extends javax.swing.JFrame {
     //Menu Alimento. Abre a tela Alimentos
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
        
-       TelaAlimento telaAlimento = new TelaAlimento(jDesktopPane1);
+       TelaAlimento telaAlimento = new TelaAlimento(jDesktopPane1, usuarioLogado.getId());
        jDesktopPane1.add(telaAlimento);
        telaAlimento.show();
       
@@ -218,9 +229,11 @@ public class MenuVw extends javax.swing.JFrame {
     
     //metodo para colocar o nome do usuario logado na labe da tela menu
     public void Usuario(Pessoa usuario){
-        txtNomeUsuario.setText(usuario.getNome());  
-    }
-    
+        this.usuarioLogado = usuario;
+        txtNomeUsuario.setText(usuario.getNome());
+        txIdUsuario.setText(usuario.getId().toString());
+       txIdUsuario.setVisible(false);
+    }   
     
   
     
@@ -233,6 +246,7 @@ public class MenuVw extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSlider jSlider1;
+    public javax.swing.JLabel txIdUsuario;
     private javax.swing.JLabel txtData;
     private javax.swing.JLabel txtHora;
     private javax.swing.JLabel txtNomeUsuario;

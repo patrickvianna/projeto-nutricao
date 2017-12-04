@@ -9,7 +9,7 @@ public interface NutrienteDAO {
 
     //Collection obterTodos();
     
-    ArrayList<Nutriente> consultar(Alimento alimento);
+    ArrayList<Nutriente> consultar(Long idAlimento);
 
     void salvar(Nutriente nutriente);
 

@@ -10,6 +10,7 @@ public class Pessoa {
     private String email;
     private String senha;
     private Set<Refeicao> refeicoes;
+    private static Pessoa pessoaGlobal;
 
     public Pessoa() {
         this.refeicoes = new HashSet<Refeicao>();
@@ -32,6 +33,14 @@ public class Pessoa {
         this.login = login;
         this.senha = senha;     
     }  
+     
+    public static Pessoa getInstance(){
+
+       if(pessoaGlobal == null) pessoaGlobal = new Pessoa();
+
+       return pessoaGlobal;
+
+       }
        
     public Long getId() {
         return id;

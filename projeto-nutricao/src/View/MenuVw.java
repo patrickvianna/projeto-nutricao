@@ -94,6 +94,11 @@ public class MenuVw extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Historico de Refeições");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Meus Dados");
@@ -147,8 +152,6 @@ public class MenuVw extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        txIdUsuario.getAccessibleContext().setAccessibleName("");
-
         setSize(new java.awt.Dimension(807, 691));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -176,6 +179,12 @@ public class MenuVw extends javax.swing.JFrame {
         jDesktopPane1.add(telaMeusDados);
         telaMeusDados.show();
     }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+       TelaHistorioRefeicao refeicao = new TelaHistorioRefeicao();
+       jDesktopPane1.add(refeicao);
+       refeicao.show();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments

@@ -1,23 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import DAO.PessoaDAOJDBC;
+import Model.Pessoa;
 import java.awt.Menu;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Patrick
- */
 public class LoginVw extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginVw
-     */
     public LoginVw() {
         initComponents();
         this.setResizable(false);
@@ -124,7 +113,7 @@ public class LoginVw extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(168, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,7 +158,9 @@ public class LoginVw extends javax.swing.JFrame {
             MenuVw menu =  new MenuVw();
             menu.setVisible(true);
             menu.setResizable(false);
-            menu.Usuario(pessoaDAOJDBC.ValidarUsuario(LoginTF.getText(),SenhaTF.getText()));
+            Pessoa usuario = Pessoa.getInstance();
+            usuario= pessoaDAOJDBC.ValidarUsuario(LoginTF.getText(),SenhaTF.getText()); 
+            menu.Usuario(usuario);
             this.dispose();       
             
             

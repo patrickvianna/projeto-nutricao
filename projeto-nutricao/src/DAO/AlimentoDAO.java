@@ -7,9 +7,11 @@ public interface AlimentoDAO {
 
     //Collection obterTodos();
     //Collection Consultar();
-    public ArrayList<Alimento> consultar();
+    public ArrayList<Alimento> obterTodos();
     
     Alimento buscarAlimentoNome(String nome);
+    
+    Alimento buscarAlimentoID(Long idAlimento);
     
     void salvar(Alimento alimento);
 

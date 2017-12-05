@@ -9,15 +9,8 @@ import DAO.PessoaDAOJDBC;
 import Model.Pessoa;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Humberto
- */
 public class TelaCadastro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCadastro
-     */
     public TelaCadastro() {
         initComponents();
         this.setLocationRelativeTo(null);

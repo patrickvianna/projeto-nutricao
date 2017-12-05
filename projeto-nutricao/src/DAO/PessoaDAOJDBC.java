@@ -44,7 +44,7 @@ public class PessoaDAOJDBC extends DAOBaseJDBC implements PessoaDAO {
             Pessoa pessoa = null;
             try {
                 PreparedStatement smt =
-                        conn.prepareStatement("SELECT * FROM tab_pessoa WHERE login = ? and senha = ?");
+                        conn.prepareStatement("SELECT ID, NOME, IDADE, EMAIL, LOGIN FROM tab_pessoa WHERE login = ? and senha = ?");
                 smt.setString(1, login);
                 smt.setString(2, senha);
                 ResultSet rset = smt.executeQuery();
@@ -57,7 +57,6 @@ public class PessoaDAOJDBC extends DAOBaseJDBC implements PessoaDAO {
                     pessoa.setIdade(rset.getInt("IDADE"));
                     pessoa.setEmail(rset.getString("EMAIL"));
                     pessoa.setLogin(rset.getString("LOGIN"));
-                    pessoa.setSenha(rset.getString("SENHA"));
                     smt.close();
                     
                 }

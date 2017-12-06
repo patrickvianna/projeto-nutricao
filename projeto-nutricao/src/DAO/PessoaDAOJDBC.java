@@ -102,7 +102,7 @@ public class PessoaDAOJDBC extends DAOBaseJDBC implements PessoaDAO {
         if (pessoa.getId() != null) {
             try {
                 stmt = conn.prepareStatement("DELETE FROM tab_pessoa WHERE id = ?");
-                stmt.setLong(1, pessoa.getId());
+                stmt.setInt(1, Integer.parseInt(pessoa.getId().toString()));
                 stmt.executeUpdate();
                 certo = true;
             } catch (SQLException ex) {

@@ -24,10 +24,13 @@ public class MeusDados extends javax.swing.JInternalFrame {
      */
     private  MenuVw menu;
     
-    public MeusDados(MenuVw menu) {
+    public MeusDados(MenuVw menu, Long idUsuarios) {
         initComponents();
+        
         CampoId.setVisible(false);
-        this.menu = menu;
+        txIdUsuario.setVisible(false);
+        txIdUsuario.setText(idUsuarios.toString());
+        this.menu = menu;        
     }
     
     //Carregar os dados do usuario logado na tela de Dados
@@ -66,6 +69,7 @@ public class MeusDados extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         CampoLogin = new javax.swing.JTextField();
         CampoId = new javax.swing.JTextField();
+        txIdUsuario = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Btn_SalvarDados = new javax.swing.JButton();
         Btn_LimparCampos = new javax.swing.JButton();
@@ -197,7 +201,9 @@ public class MeusDados extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(277, 277, 277)
+                .addGap(162, 162, 162)
+                .addComponent(txIdUsuario)
+                .addGap(81, 81, 81)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -205,7 +211,9 @@ public class MeusDados extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txIdUsuario))
                 .addGap(32, 32, 32)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
@@ -327,9 +335,11 @@ public class MeusDados extends javax.swing.JInternalFrame {
           Pessoa pessoa = new Pessoa(Long.parseLong(CampoId.getText()), CampoNome.getText(),Integer.parseInt(CampoIdade.getText()), CampoEmail.getText(),CampoLogin.getText(), CampoSenha.getText());
           PessoaCtrl controllerPessoa = new PessoaCtrl();
            
-           if(controllerPessoa.excluirUsuario(pessoa)){
-               JOptionPane.showMessageDialog(null, "Conta excluida com sucesso!");
-               this.menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          boolean resultado = controllerPessoa.excluirUsuario(pessoa,Long.parseLong(txIdUsuario.getText().toString()));
+           if(resultado){
+                JOptionPane.showMessageDialog(null, "Conta excluida com sucesso!");
+                //this.menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                System.exit(0);
            }else{
                JOptionPane.showMessageDialog(null, "Não foi possivel excluir sua conta");
            }         
@@ -361,5 +371,6 @@ public class MeusDados extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel txIdUsuario;
     // End of variables declaration//GEN-END:variables
 }

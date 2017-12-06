@@ -14,9 +14,10 @@ public class Refeicao {
         this.alimentos = new HashSet<Alimento>();
     }
 
-    public Refeicao(Long id, String nome) {
+    public Refeicao(Long id, String nome, float preco) {
         this.id = id;
         this.nome = nome;
+        this.preco = preco;
     }
     // <editor-fold defaultstate="collapsed" desc="Gets e Sets">
     public Long getId() {

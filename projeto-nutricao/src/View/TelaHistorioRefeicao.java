@@ -287,7 +287,7 @@ public class TelaHistorioRefeicao extends javax.swing.JInternalFrame {
                    
                    if(resultado){
                     JOptionPane.showMessageDialog(null,"Refeição excluida com sucesso!\n\n");
-                    this.dispose();
+                    //this.dispose();
                     }else
                     {
                         JOptionPane.showMessageDialog(null,"Refeição não foi Excluida!\n\n");

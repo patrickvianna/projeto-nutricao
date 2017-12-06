@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Alimento;
 import Model.Pessoa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ import tools.DAOBaseJDBC;
 public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
 
     PreparedStatement stmt = null;
+    
 
     @Override
     public ArrayList<Refeicao> obterTodos(Long idUsuario) {
@@ -153,7 +155,6 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
             stmt = conn.prepareStatement("DELETE FROM tab_refeicao WHERE ID = ?");
             stmt.setInt(1, Integer.parseInt(idRefeicao.toString()));
             stmt.executeUpdate();
-            System.out.println("PASSOU");
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,8 +162,51 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
             System.exit(1);
             return false;
         }
-
         
+    }
+    //busca todos as refeicoes de um usuario
+    public ArrayList<Refeicao> buscarRefeicao(Long idUsuario){
+        
+        ArrayList<Refeicao> refeicoes = null;
+        try {
+                PreparedStatement smt =
+                        conn.prepareStatement("SELECT ID, NOME, PRECO FROM tab_refeicao WHERE TAB_PESSOA_ID = ?");
+                smt.setInt(1, Integer.parseInt(idUsuario.toString()));
+                ResultSet rset = smt.executeQuery();
+                refeicoes = new ArrayList<>();
+                
+                while(rset.next()){
+                    Refeicao refeicao = new Refeicao();
+                    
+                    refeicao.setId(rset.getLong("ID"));
+                    refeicao.setNome(rset.getString("NOME"));
+                    refeicao.setPreco(rset.getFloat("PRECO"));
+                    
+                    refeicoes.add(refeicao);
+                }
+            }catch(SQLException e){
+                Logger.getLogger(AlimentoDAOJDBC.class.getName()).log(Level.SEVERE, null, e);
+                System.out.println("erro " + e);
+            }
+            
+             return refeicoes;
+    }
+    
+    //deleta refeicao de determinado usuario
+    public boolean excluirRefeicao(Pessoa pessoa){
+        try {                
+           
+            stmt = conn.prepareStatement("DELETE FROM tab_refeicao WHERE tab_pessoa_id = ?");
+            stmt.setLong(1,pessoa.getId());
+            stmt.executeUpdate();
+           
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro SQL: " + ex.getMessage());
+            System.exit(1);
+            return false;
+        }
     }
     
 }

@@ -3,7 +3,9 @@ package Controller;
 import DAO.PessoaDAOJDBC;
 import DAO.RefeicaoDAOJDBC;
 import Model.Pessoa;
+import Model.Refeicao;
 import View.MenuVw;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class PessoaCtrl {
@@ -36,12 +38,19 @@ public class PessoaCtrl {
         }
     }
     
-    public boolean excluirUsuario(Pessoa pessoa){
+    public boolean excluirUsuario(Pessoa pessoa, Long idUsuario){
         PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
         
         RefeicaoDAOJDBC refeicaoDAOJDBC = new RefeicaoDAOJDBC();
         
-        refeicaoDAOJDBC.excluirRefeicao(pessoa);
+        ArrayList<Refeicao> refeicao = null;
+        
+        refeicao = refeicaoDAOJDBC.buscarRefeicao(idUsuario);
+        if(!refeicao.isEmpty()){
+            for(Refeicao r: refeicao){            
+                refeicaoDAOJDBC.excluir(r.getId());
+            }
+        }
         
         if(pessoaDAOJDBC.excluir(pessoa)){
             return true;

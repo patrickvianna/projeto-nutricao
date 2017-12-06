@@ -1,5 +1,6 @@
 package View;
 
+import Controller.PessoaCtrl;
 import DAO.PessoaDAOJDBC;
 import Model.Pessoa;
 import java.awt.Menu;
@@ -28,9 +29,9 @@ public class LoginVw extends javax.swing.JFrame {
         LoginTF = new javax.swing.JTextField();
         LoginLB = new javax.swing.JLabel();
         SenhaLB = new javax.swing.JLabel();
-        SenhaTF = new javax.swing.JTextField();
         BtnEntrar = new javax.swing.JButton();
         BtnCadastrar = new javax.swing.JButton();
+        SenhaTF = new javax.swing.JPasswordField();
 
         jLabel1.setText("jLabel1");
 
@@ -52,8 +53,6 @@ public class LoginVw extends javax.swing.JFrame {
         SenhaLB.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         SenhaLB.setText("Senha : ");
 
-        SenhaTF.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
         BtnEntrar.setForeground(new java.awt.Color(0, 51, 204));
         BtnEntrar.setText("Entrar");
         BtnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -70,25 +69,29 @@ public class LoginVw extends javax.swing.JFrame {
             }
         });
 
+        SenhaTF.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(52, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(BtnCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SenhaLB)
-                            .addComponent(SenhaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(LoginLB)
                             .addComponent(LoginTF, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63))))
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(SenhaTF, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(BtnCadastrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(61, 61, 61))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,19 +155,13 @@ public class LoginVw extends javax.swing.JFrame {
 
     //Validacao do usuario 
     private void BtnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEntrarActionPerformed
-        PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
         
-        if(pessoaDAOJDBC.ValidarUsuario(LoginTF.getText(),SenhaTF.getText()) != null){
-            MenuVw menu =  new MenuVw();
-            menu.setVisible(true);
-            menu.setResizable(false);
-            Pessoa usuario = Pessoa.getInstance();
-            usuario= pessoaDAOJDBC.ValidarUsuario(LoginTF.getText(),SenhaTF.getText()); 
-            menu.Usuario(usuario);
-            this.dispose();       
-            
-            
+        PessoaCtrl controllerPessoa = new PessoaCtrl();
+        
+        if(controllerPessoa.validarUsuario(LoginTF.getText(),SenhaTF.getText())){
+            this.dispose();                  
         }else{
+            
             JOptionPane.showMessageDialog(null,"Login ou senha errado.Tente novamente!");
             LoginTF.setText("");
             SenhaTF.setText("");
@@ -220,7 +217,7 @@ public class LoginVw extends javax.swing.JFrame {
     private javax.swing.JLabel LoginLB;
     private javax.swing.JTextField LoginTF;
     private javax.swing.JLabel SenhaLB;
-    private javax.swing.JTextField SenhaTF;
+    private javax.swing.JPasswordField SenhaTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

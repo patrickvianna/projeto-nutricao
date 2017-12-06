@@ -6,6 +6,8 @@ import java.util.Set;
 public class Refeicao {
     private Long id;
     private String nome;
+    private float preco;
+    private Long idUsuario;
     private Set<Alimento> alimentos;
 
     public Refeicao() {
@@ -16,7 +18,7 @@ public class Refeicao {
         this.id = id;
         this.nome = nome;
     }
-    
+    // <editor-fold defaultstate="collapsed" desc="Gets e Sets">
     public Long getId() {
         return id;
     }
@@ -33,6 +35,23 @@ public class Refeicao {
         this.nome = nome;
     }
 
+    public float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(float qtd) {
+        this.preco = qtd;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+
     public Set<Alimento> getAlimentos() {
         return alimentos;
     }
@@ -40,5 +59,5 @@ public class Refeicao {
     public void setAlimentos(Set<Alimento> alimentos) {
         this.alimentos = alimentos;
     }
-    
+    // </editor-fold>
 }

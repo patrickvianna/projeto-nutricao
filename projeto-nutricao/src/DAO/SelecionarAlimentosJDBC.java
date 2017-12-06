@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Model.MontaRefeicao;
 import Model.Nutriente;
 import java.util.ArrayList;
 import tools.DAOBaseJDBC;
@@ -35,7 +34,6 @@ public class SelecionarAlimentosJDBC extends DAOBaseJDBC implements SelecionarAl
                 nutrientes.add(nutri);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MontaRefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro SQL: " + ex.getMessage());
             System.exit(1);
         }

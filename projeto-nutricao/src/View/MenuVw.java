@@ -181,7 +181,7 @@ public class MenuVw extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-       TelaHistorioRefeicao refeicao = new TelaHistorioRefeicao();
+       TelaHistorioRefeicao refeicao = new TelaHistorioRefeicao(Long.parseLong(txIdUsuario.getText()));
        jDesktopPane1.add(refeicao);
        refeicao.show();
     }//GEN-LAST:event_jMenu2MouseClicked

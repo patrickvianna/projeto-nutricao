@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.PessoaDAOJDBC;
+import DAO.RefeicaoDAOJDBC;
 import Model.Pessoa;
 import View.MenuVw;
 import javax.swing.JOptionPane;
@@ -29,6 +30,20 @@ public class PessoaCtrl {
         PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
         
         if(pessoaDAOJDBC.salvar(pessoa)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean excluirUsuario(Pessoa pessoa){
+        PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
+        
+        RefeicaoDAOJDBC refeicaoDAOJDBC = new RefeicaoDAOJDBC();
+        
+        refeicaoDAOJDBC.excluirRefeicao(pessoa);
+        
+        if(pessoaDAOJDBC.excluir(pessoa)){
             return true;
         }else{
             return false;

@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Pessoa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +42,8 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
         }
         return set;
     }
-
+    
+   
     @Override
     public Boolean salvar(String nomeRefeicao, float preco, Long idPessoa) {
         ResultSet rset = null;
@@ -98,6 +100,19 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
             }
 
         }
+    }
+    
+    //excluir refeicao pelo id do usuario
+    public void excluirRefeicao(Pessoa pessoa) {
+            try {                
+                stmt = conn.prepareStatement("DELETE FROM Refeicao WHERE tab_pessoa_id = ?");
+                stmt.setLong(1, pessoa.getId());
+                stmt.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro SQL: " + ex.getMessage());
+                System.exit(1);
+            }
     }
     
     @Override

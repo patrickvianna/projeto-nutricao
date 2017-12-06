@@ -174,7 +174,7 @@ public class MenuVw extends javax.swing.JFrame {
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         
         PessoaDAOJDBC pessoa = new PessoaDAOJDBC();
-        MeusDados telaMeusDados = new MeusDados();
+        MeusDados telaMeusDados = new MeusDados(this);
         telaMeusDados.DadosUsuario(pessoa.ConsultarUsuarioNome(txtNomeUsuario.getText()));
         jDesktopPane1.add(telaMeusDados);
         telaMeusDados.show();

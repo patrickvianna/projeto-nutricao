@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controller.AlimentoCtrl;
+import Controller.NutrientesCtrl;
 import DAO.AlimentoDAOJDBC;
 import DAO.NutrienteDAOJDBC;
 import Model.Alimento;
@@ -202,19 +204,12 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
             System.out.println("ERRO: " + e.getMessage());
         }
     }
+    
     public void readJTableAlimento(){
-        DefaultTableModel modelo = (DefaultTableModel) jAlimentos.getModel();
+       DefaultTableModel modelo = (DefaultTableModel) jAlimentos.getModel();
         
-        AlimentoDAOJDBC alimentoDao = new AlimentoDAOJDBC();
-        
-        for(Alimento a: alimentoDao.obterTodos()){            
-            modelo.addRow(new Object[]{
-                a.getId(),
-                a.getNome(),
-                a.getDescricao(),
-                a.getTipo()
-            });
-        }
+       AlimentoCtrl controllerAlimento = new AlimentoCtrl();
+       controllerAlimento.preencherTabelaAlimento(modelo);
         
     }
 // </editor-fold> 
@@ -223,21 +218,8 @@ public class TelaAlimento extends javax.swing.JInternalFrame {
         public void readJTableNutriente(Long idAlimento){
             try{
                 DefaultTableModel modelo1 = (DefaultTableModel) jTableNutrientes.getModel();
-
-                NutrienteDAOJDBC nutrienteDao = new NutrienteDAOJDBC();
-                AlimentoDAOJDBC alimentoDao = new AlimentoDAOJDBC();
-
-                while (modelo1.getRowCount() > 0) // se a tabela tinha alguma linha , essa linha é removida antes de criar novas linhas
-                     modelo1.removeRow(0);
-
-                for(Nutriente a: nutrienteDao.consultar(idAlimento)){
-                    modelo1.addRow(new Object[]{
-                        //a.getId(),
-                        a.getTipo(),
-                        a.getQuantidade(),
-                        //a.getTipo()
-                    });
-                }
+                NutrientesCtrl controllerNutriente = new NutrientesCtrl();
+                controllerNutriente.preencherTabelaNutrientes(modelo1, idAlimento);
             }catch(Exception ex)
             {
                 System.out.println("MENSAGEM DE ERRO" + ex.getMessage());

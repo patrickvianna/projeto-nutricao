@@ -5,9 +5,12 @@
  */
 package View;
 
+import Controller.PessoaCtrl;
 import DAO.PessoaDAOJDBC;
 import Model.Pessoa;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -19,10 +22,12 @@ public class MeusDados extends javax.swing.JInternalFrame {
      * Creates new form MeusDados
      
      */
-    public MeusDados() {
+    private  MenuVw menu;
+    
+    public MeusDados(MenuVw menu) {
         initComponents();
         CampoId.setVisible(false);
-        
+        this.menu = menu;
     }
     
     //Carregar os dados do usuario logado na tela de Dados
@@ -297,14 +302,16 @@ public class MeusDados extends javax.swing.JInternalFrame {
     private void Btn_SalvarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_SalvarDadosActionPerformed
         
         Pessoa pessoa = new Pessoa(Long.parseLong(CampoId.getText()), CampoNome.getText(),Integer.parseInt(CampoIdade.getText()), CampoEmail.getText(),CampoLogin.getText(), CampoSenha.getText());
-        PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
-        
-        if(pessoaDAOJDBC.salvar(pessoa)){
+        PessoaCtrl controllerPessoa = new PessoaCtrl();
+       
+        if(controllerPessoa.salvarUsuario(pessoa)){
             JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+            this.dispose();
         }else{
             JOptionPane.showMessageDialog(null,"Erro ao salvar. Tente novamente!");
         }
-        System.out.println(pessoa.getId());
+       
+        
     }//GEN-LAST:event_Btn_SalvarDadosActionPerformed
 
     private void CampoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIdActionPerformed
@@ -318,11 +325,11 @@ public class MeusDados extends javax.swing.JInternalFrame {
         if (resposta == JOptionPane.YES_OPTION) {
             
           Pessoa pessoa = new Pessoa(Long.parseLong(CampoId.getText()), CampoNome.getText(),Integer.parseInt(CampoIdade.getText()), CampoEmail.getText(),CampoLogin.getText(), CampoSenha.getText());
-          PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
+          PessoaCtrl controllerPessoa = new PessoaCtrl();
            
-           if(pessoaDAOJDBC.excluir(pessoa)){
+           if(controllerPessoa.excluirUsuario(pessoa)){
                JOptionPane.showMessageDialog(null, "Conta excluida com sucesso!");
-               this.dispose();
+               this.menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            }else{
                JOptionPane.showMessageDialog(null, "Não foi possivel excluir sua conta");
            }         

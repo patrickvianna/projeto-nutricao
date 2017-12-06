@@ -255,7 +255,7 @@ public class TelaMontarRefeicao extends javax.swing.JInternalFrame {
             if(resultado){
                 JOptionPane.showMessageDialog(null,"Refeição cadastrada com sucesso!\n\n"
                     + "Nome: " + nomeRefeicao + "\n"
-                    + "Preço: " + precoRefeicao + "\n");
+                    + "Preço: R$ " + precoRefeicao + "\n");
                 this.dispose();
             }else
             {

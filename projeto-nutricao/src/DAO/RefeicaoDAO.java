@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public interface RefeicaoDAO {
 
-    Collection obterTodos();
+    ArrayList<Refeicao> obterTodos(Long idUsuario);
+    
+    ArrayList<SelecionarAlimentos> obterAlimentosRefeicao(Long idRefeicao);
 
     Boolean salvar(String nomeRefeicao, float preco, Long idPessoa);
     
     void salvarAlimentos(ArrayList<SelecionarAlimentos> sa, String nomeRefeicao, Long idPessoa);
 
-    void excluir(Refeicao refeicao);
+    Boolean excluir(Long idRefeicao);
 }

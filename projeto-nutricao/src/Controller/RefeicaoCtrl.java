@@ -5,6 +5,7 @@ import DAO.SelecionarAlimentoDAO;
 import Model.Nutriente;
 import Model.SelecionarAlimentos;
 import DAO.SelecionarAlimentosJDBC;
+import Model.Refeicao;
 import java.util.ArrayList;
 
 public class RefeicaoCtrl {
@@ -12,16 +13,13 @@ public class RefeicaoCtrl {
     public RefeicaoCtrl() {
     }
     
-    public void selecionarAlimento()
+    public ArrayList<Refeicao> obterRefeicoes(Long idUsuario)
     {
+        RefeicaoDAOJDBC refeicaoDAO = new RefeicaoDAOJDBC();
         
+        return refeicaoDAO.obterTodos(idUsuario);       
     }
-    
-    public void  verificarBaalanceamento()
-    {
         
-    }
-    
     public Boolean salvarRefeicao(String nomeRefeicao, float precoRefeicao, ArrayList<SelecionarAlimentos> sa, Long idUsuario)
     {
         RefeicaoDAOJDBC refeicaoDAO = new RefeicaoDAOJDBC();
@@ -74,5 +72,19 @@ public class RefeicaoCtrl {
            }
        }
        return nutrientes;
+   }
+   
+   public ArrayList<SelecionarAlimentos> obterAlimentosRefeicao(Long idRefeicao)
+   {
+       RefeicaoDAOJDBC rf = new RefeicaoDAOJDBC();
+       
+       return rf.obterAlimentosRefeicao(idRefeicao);
+   }
+   
+   public Boolean excluirRefeicao (Long idRefeicao)
+   {
+       RefeicaoDAOJDBC rf = new RefeicaoDAOJDBC();
+       
+       return rf.excluir(idRefeicao);
    }
 }

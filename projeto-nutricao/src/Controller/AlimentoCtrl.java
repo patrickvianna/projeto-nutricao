@@ -19,4 +19,11 @@ public class AlimentoCtrl {
             });
         }
     }
+    
+    public Alimento preencherTabelaAlimento(Long idAlimento){
+        AlimentoDAOJDBC alimentoDAO = new AlimentoDAOJDBC();
+        
+        return alimentoDAO.buscarAlimentoID(idAlimento);
+    }
+    
 }

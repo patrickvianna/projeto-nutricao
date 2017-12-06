@@ -19,23 +19,50 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
     PreparedStatement stmt = null;
 
     @Override
-    public Collection obterTodos() {
-        Set set = new HashSet<>();
+    public ArrayList<Refeicao> obterTodos(Long idUsuario) {
+        ArrayList<Refeicao> set = new ArrayList<>();
         ResultSet rset = null;
         try {
-            conn.prepareStatement("SELECT id, nome, quantidade, FROM Refeicao");
+            stmt = conn.prepareStatement("SELECT ID, NOME, PRECO FROM TAB_REFEICAO WHERE TAB_PESSOA_ID = ?");
+            
+            stmt.setInt(1, Integer.parseInt(idUsuario.toString()));
+            
             rset = stmt.executeQuery();
             while (rset.next()) {
                 Refeicao refeicao = new Refeicao();
 
                 refeicao.setId(new Long(rset.getLong("id")));
                 refeicao.setNome(new String(rset.getString("nome")));
-                //refeicao.setQuantidade(new Integer(rset.getInt("quantidade")));
-                refeicao.setAlimentos(set);        //Ainda falta a inserção do banco na coleção do tipo Set
+                refeicao.setPreco(rset.getFloat("preco"));
                 set.add(refeicao);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro SQL: " + ex.getMessage());
+            System.exit(1);
+        }
+        return set;
+    }
+    
+    @Override
+    public ArrayList<SelecionarAlimentos> obterAlimentosRefeicao(Long idRefeicao) {
+        ArrayList<SelecionarAlimentos> set = new ArrayList<>();
+        ResultSet rset = null;
+        try {
+            stmt = conn.prepareStatement("SELECT TAB_ALIMENTO_ID, QTD_ALIMENTO "
+                                            //+ "FROM TAB_ALIMENTO_HAS_TAB_REFEICAO WHERE TAB_REFEICAO_ID = ?");
+                                            + "FROM TAB_REFEICAO_HAS_TAB_ALIMENTO WHERE TAB_REFEICAO_ID = ?");
+            stmt.setInt(1, Integer.parseInt(idRefeicao.toString()));
+            rset = stmt.executeQuery();
+            while (rset.next()) {
+                SelecionarAlimentos sa = new SelecionarAlimentos();
+
+                sa.setIdAlimento(new Long(rset.getLong("TAB_ALIMENTO_ID")));
+                sa.setQtd(rset.getFloat("QTD_ALIMENTO"));
+                set.add(sa);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SelecionarAlimentosJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro SQL: " + ex.getMessage());
             System.exit(1);
         }
@@ -85,22 +112,6 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
     }
 
     @Override
-    public void excluir(Refeicao refeicao) {
-        if (refeicao.getNome() != null) {
-            try {                
-                stmt = conn.prepareStatement("DELETE FROM Refeicao WHERE nome = ?");
-                stmt.setString(1, refeicao.getNome());
-                stmt.executeUpdate();
-            } catch (SQLException ex) {
-                Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Erro SQL: " + ex.getMessage());
-                System.exit(1);
-            }
-
-        }
-    }
-    
-    @Override
     public void salvarAlimentos(ArrayList<SelecionarAlimentos> sa, String nomeRefeicao, Long idPessoa) {
         ResultSet rset = null;
         Long idRefeicao = null;
@@ -113,7 +124,8 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
                 }
             for(SelecionarAlimentos a: sa)
             {   
-                stmt = conn.prepareStatement("INSERT INTO tab_alimento_has_tab_refeicao"
+                    stmt = conn.prepareStatement("INSERT INTO TAB_REFEICAO_HAS_TAB_ALIMENTO"
+                //stmt = conn.prepareStatement("INSERT INTO tab_alimento_has_tab_refeicao"
                                             + " (TAB_REFEICAO_ID, TAB_REFEICAO_TAB_PESSOA_ID, TAB_ALIMENTO_ID, QTD_ALIMENTO) "
                                             + " VALUES(?,?,?,?)");
                 stmt.setInt(1, Integer.parseInt(idRefeicao.toString()));
@@ -128,6 +140,28 @@ public class RefeicaoDAOJDBC extends DAOBaseJDBC implements RefeicaoDAO {
         {
             System.out.println("ERRO SQL : " + e.getMessage());            
         }
+    }
+    
+    @Override
+    public Boolean excluir(Long idRefeicao) {        
+        try {                
+            stmt = conn.prepareStatement("DELETE FROM tab_refeicao_has_tab_alimento where TAB_REFEICAO_ID = ?");
+            stmt.setInt(1, Integer.parseInt(idRefeicao.toString()));
+            stmt.executeUpdate();
+            
+            stmt = conn.prepareStatement("DELETE FROM tab_refeicao WHERE ID = ?");
+            stmt.setInt(1, Integer.parseInt(idRefeicao.toString()));
+            stmt.executeUpdate();
+            System.out.println("PASSOU");
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(RefeicaoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro SQL: " + ex.getMessage());
+            System.exit(1);
+            return false;
+        }
+
+        
     }
     
 }

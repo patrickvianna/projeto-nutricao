@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.PessoaCtrl;
 import DAO.PessoaDAOJDBC;
 import Model.Pessoa;
 import javax.swing.JOptionPane;
@@ -216,8 +217,9 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void BtnSalvarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarUsuarioActionPerformed
 
         Pessoa pessoa = new Pessoa(CampoNome.getText(),Integer.parseInt(CampoIdade.getText()),CampoEmail.getText(),CampoLogin.getText(),CampoSenha.getText());
-        PessoaDAOJDBC pessoaDAOJDBC = new PessoaDAOJDBC();
-        if(pessoaDAOJDBC.salvar(pessoa)){
+        PessoaCtrl controllerPessoa = new PessoaCtrl();
+        
+        if(controllerPessoa.salvarUsuario(pessoa)){
             JOptionPane.showMessageDialog(null,"Cadastro Realizado com sucesso!\n\n"
                 + "Nome: " + CampoNome.getText() + "\n"
                 + "Idade: " + CampoIdade.getText() + "\n"
@@ -227,7 +229,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null,"Erro ao cadastrar. Tente novamente!");
         }
-        System.out.println(pessoa.toString());
+        
         this.dispose();
     }//GEN-LAST:event_BtnSalvarUsuarioActionPerformed
 

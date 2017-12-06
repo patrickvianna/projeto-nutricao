@@ -5,9 +5,12 @@ import Model.Pessoa;
 
 public interface PessoaDAO {
 
-    Collection obterTodos();
+   /* Collection obterTodos();*/
+    Pessoa ValidarUsuario(String login, String senha);
+    
+    Pessoa ConsultarUsuarioNome(String nome);
 
-    void salvar(Pessoa pessoa);
+    boolean salvar(Pessoa pessoa);
 
-    void excluir(Pessoa pessoa);
+    boolean excluir(Pessoa pessoa);
 }

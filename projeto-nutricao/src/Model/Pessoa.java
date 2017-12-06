@@ -6,19 +6,41 @@ public class Pessoa {
     private Long id;
     private int idade;
     private String nome;
+    private String login;
     private String email;
+    private String senha;
     private Set<Refeicao> refeicoes;
+    private static Pessoa pessoaGlobal;
 
     public Pessoa() {
         this.refeicoes = new HashSet<Refeicao>();
     }
 
-    public Pessoa(Long id, int idade, String nome, String email) {
+    public Pessoa(Long id,String nome,int idade, String email, String login, String senha) {
         this.id = id;
         this.idade = idade;
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
+        this.login = login;
+    }
+    
+     public Pessoa( String nome,int idade, String email,String login, String senha) {
+        
+        this.nome = nome;
+        this.idade = idade;
+        this.email = email;
+        this.login = login;
+        this.senha = senha;     
     }  
+     
+    public static Pessoa getInstance(){
+
+       if(pessoaGlobal == null) pessoaGlobal = new Pessoa();
+
+       return pessoaGlobal;
+
+       }
        
     public Long getId() {
         return id;
@@ -44,6 +66,7 @@ public class Pessoa {
         this.nome = nome;
     }
 
+    
     public String getEmail() {
         return email;
     }
@@ -52,11 +75,37 @@ public class Pessoa {
         this.email = email;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Set<Refeicao> getRefeicoes() {
         return refeicoes;
     }
 
     public void setRefeicoes(Set<Refeicao> refeicoes) {
         this.refeicoes = refeicoes;
+    }
+    
+    @Override
+    public String toString(){
+        return "Id: " + this.id + "\n"
+                +"Nome: " + this.nome + "\n"
+                + "Idade: " + this.idade + "\n"
+                + "Email: " + this.email + "\n"
+                + "Login: " + this.login + "\n"
+                + "Senha: " + this.senha;
     }
 }

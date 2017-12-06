@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/View/TelaMontarRefeicao.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/View/MenuVw.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/View/TelaAlimento.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/View/TelaHistorioRefeicao.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/DAO/RefeicaoDAO.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/Model/SelecionarAlimentos.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/DAO/RefeicaoDAOJDBC.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/Controller/RefeicaoCtrl.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Projetos/projeto-nutricao/projeto-nutricao/src/DAO/AlimentoDAOJDBC.java</file>
+        </group>
     </open-files>
 </project-private>

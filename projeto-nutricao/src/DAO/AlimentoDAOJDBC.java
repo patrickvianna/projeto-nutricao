@@ -15,34 +15,11 @@ public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
     PreparedStatement stmt = null;
     private ArrayList<Alimento> alimentos = new ArrayList();
 
-    /*@Override
-    public Collection obterTodos() {
-        Set set = new HashSet<>();
-        ResultSet rset = null;
-        try {
-            conn.prepareStatement("SELECT id, nome, descricao, tipo, nutriente, FROM Alimento");
-            rset = stmt.executeQuery();
-            while (rset.next()) {
-                Alimento alimento = new Alimento();
-                alimento.setId(new Long(rset.getLong("id")));
-                alimento.setNome(new String(rset.getString("nome")));
-                alimento.setDescricao(new String(rset.getString("descricao")));
-                alimento.setTipo(new String(rset.getString("id")));
-                alimento.setNutrientes(set);        //Ainda falta implementar
-                set.add(alimento);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AlimentoDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Erro SQL: " + ex.getMessage());
-            System.exit(1);
-        }
-        return set;
-    }*/
-    public ArrayList<Alimento> consultar(){
+    public ArrayList<Alimento> obterTodos(){
        // Alimento alim = null;
             try {
                 PreparedStatement smt =
-                        conn.prepareStatement("SELECT * FROM tab_alimento");
+                        conn.prepareStatement("SELECT ID, NOME, DESCRICAO, TIPO FROM tab_alimento");
                 ResultSet rset = smt.executeQuery();
                           
                 while(rset.next()){
@@ -97,14 +74,14 @@ public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
 
         }
     }
-    //fnkdjklgjldjlçglçdng
+   
     @Override
     public Alimento buscarAlimentoNome(String nome){
         Alimento alimento = null;
         
         try {
                 PreparedStatement smt =
-                        conn.prepareStatement("SELECT * FROM tab_alimento WHERE nome = ?");
+                        conn.prepareStatement("SELECT ID, NOME, DESCRICAO, TIPO FROM tab_alimento WHERE nome = ?");
                         smt.setString(1, nome);
                 ResultSet rset = smt.executeQuery();
                           
@@ -129,6 +106,37 @@ public class AlimentoDAOJDBC extends DAOBaseJDBC implements AlimentoDAO {
             return alimento;
     }
     
-     //dnmvnv,dsn,fnzsnf,a.dmgasdmglm,ms,.d
+    @Override
+    public Alimento buscarAlimentoID(Long idAlimento){
+        Alimento alimento = null;
+        
+        try {
+                PreparedStatement smt =
+                        conn.prepareStatement("SELECT ID, NOME, DESCRICAO, TIPO FROM tab_alimento WHERE ID = ?");
+                        smt.setLong(1, idAlimento);
+                ResultSet rset = smt.executeQuery();
+                          
+                if(rset.next()){
+                   
+                    alimento = new Alimento();
+        
+                    alimento.setId(rset.getLong("ID"));
+                    alimento.setNome(rset.getString("NOME"));
+                    alimento.setDescricao(rset.getString("DESCRICAO"));
+                    alimento.setTipo(rset.getString("TIPO"));
+                     
+                }else{
+                    return null;
+                }
+            }catch(SQLException e){
+                
+                System.out.println("Falha na consulta " + e.getMessage());
+                return null;
+            }
+            
+            return alimento;
+    }
+    
+   
 
 }
